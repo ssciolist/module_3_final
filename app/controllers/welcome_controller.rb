@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
 
     if params[:text]
       search
-
+      @word = params[:text]
       if search.is_a?(String)
         render :valid
       else
@@ -27,7 +27,7 @@ class WelcomeController < ApplicationController
       begin
         JSON.parse(with_auth.body, symbolize_names: true)
         raw_result = JSON.parse(with_auth.body, symbolize_names: true)
-        root_word = raw_result[:results][0][:lexicalEntries][1][:inflectionOf][0][:text]
+        @root_word = raw_result[:results][0][:lexicalEntries][1][:inflectionOf][0][:text]
         valid_word =  JSON.parse(with_auth.body, symbolize_names: true)[:results][0][:word]
       rescue JSON::ParserError
       end
