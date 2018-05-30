@@ -15,5 +15,8 @@ class Play < ApplicationRecord
   private
 
     def score_word
+      self.score = self.word.chars.reduce(0) do |sum, letter|
+        sum += letter_scores[letter.capitalize]
+      end
     end
 end
