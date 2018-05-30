@@ -5,6 +5,11 @@ class WelcomeController < ApplicationController
 
     if params[:text]
       search
+      if search == 200
+        render :valid
+      else
+        render :invalid
+      end
     else
     end
 
@@ -21,6 +26,7 @@ class WelcomeController < ApplicationController
     raw_result = JSON.parse(with_auth.body, symbolize_names: true)
     root_word = raw_result[:results][0][:lexicalEntries][1][:inflectionOf][0][:text]
     valid_word =  raw_result[:results][0][:word]
+    with_auth.status
   end
 
   def headers
