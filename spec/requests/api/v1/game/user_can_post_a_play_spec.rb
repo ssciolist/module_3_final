@@ -10,12 +10,13 @@ describe 'As a user' do
       Play.create!(user_id: user2.id, game_id: game.id, word: "boo")
 
       post_params = {user_id: user1.id, word: 'at'}
-      post '/api/v1/games/1/plays', params: post_params
+      post "/api/v1/games/#{game.id}/plays", params: post_params
 
       expect(response.status).to eq(201)
 
       get "/api/v1/game/#{game.id}"
 
+      result = JSON.parse(response.body)
       expect(result['game_id']).to eq(game.id)
       expect(result['scores'][0]['user_id']).to eq(user1.id)
       expect(result['scores'][0]['score']).to eq(14)
