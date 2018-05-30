@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'As a user' do
-  describe 'when I send a POST request to /api/v1/games/1/plays' do
+  describe 'when I send a POST request with a valid word to /api/v1/games/1/plays' do
     it 'sends a 201, then I can see that play in my game' do
       user1 = User.create!(name: 'Josh')
       user2 = User.create!(name: 'Sal')
@@ -25,24 +25,18 @@ describe 'As a user' do
 
     end
   end
+
+  describe 'when I send a POST request with a invalid word to /api/v1/games/1/plays' do
+    it 'sends a 201, then I can see that play in my game' do
+      user1 = User.create!(name: 'Josh')
+      user2 = User.create!(name: 'Sal')
+      game = Game.create!(player_1_id: user1.id, player_2_id: user2.id)
+
+      post_params = {user_id: user1.id, word: 'foxez'}
+      post "/api/v1/games/#{game.id}/plays", params: post_params
+
+      result = JSON.parse(response.body)
+      expect(result['message']).to eq('foxez is not a valid word')
+    end
+  end
 end
-# You can choose to send the user_id and word specified below however you'd like or are comfortable.
-#
-# When I send a POST request to "/api/v1/games/1/plays" with a user_id=1 and word=at
-# Then I should receive a 201 Created Response
-#
-# When I send a GET request to "/api/v1/games/1" I receive a JSON response as follows:
-#
-# {
-#   "game_id":1,
-#   "scores": [
-#     {
-#       "user_id":1,
-#       "score":17
-#     },
-#     {
-#       "user_id":2,
-#       "score":16
-#     }
-#   ]
-# }
