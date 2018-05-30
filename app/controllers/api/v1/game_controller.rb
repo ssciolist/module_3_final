@@ -1,6 +1,5 @@
 class Api::V1::GameController < ApplicationController
   def show
-  
-    # render json: current_user
+    render json: Game.find(params[:id])
   end
 end
