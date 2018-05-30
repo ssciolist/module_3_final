@@ -5,7 +5,8 @@ class WelcomeController < ApplicationController
 
     if params[:text]
       search
-      if search == 200
+
+      if search.is_a?(String)
         render :valid
       else
         render :invalid
@@ -23,10 +24,13 @@ class WelcomeController < ApplicationController
       req.headers["app_key"] = ENV['OXFORD_APP_KEY']
     end
 
-    raw_result = JSON.parse(with_auth.body, symbolize_names: true)
-    root_word = raw_result[:results][0][:lexicalEntries][1][:inflectionOf][0][:text]
-    valid_word =  raw_result[:results][0][:word]
-    with_auth.status
+      begin
+        JSON.parse(with_auth.body, symbolize_names: true)
+        raw_result = JSON.parse(with_auth.body, symbolize_names: true)
+        root_word = raw_result[:results][0][:lexicalEntries][1][:inflectionOf][0][:text]
+        valid_word =  JSON.parse(with_auth.body, symbolize_names: true)[:results][0][:word]
+      rescue JSON::ParserError
+      end
   end
 
   def headers
