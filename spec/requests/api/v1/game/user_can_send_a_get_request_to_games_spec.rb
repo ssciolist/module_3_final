@@ -15,9 +15,9 @@ describe 'As a user' do
 
       result = JSON.parse(response.body)
       expect(result['game_id']).to eq(game.id)
-      expect(result['scores'][0]['user_id']).to eq(1)
-      expect(result['scores'][0]['score']).to eq(13)
-      expect(result['scores'][1]['user_id']).to eq(2)
+      expect(result['scores'][0]['user_id']).to eq(user1.id)
+      expect(result['scores'][0]['score']).to eq(12)
+      expect(result['scores'][1]['user_id']).to eq(user2.id)
       expect(result['scores'][1]['score']).to eq(5)
     end
   end
