@@ -4,6 +4,7 @@ describe 'As a guest user' do
   describe 'when I visit /' do
     describe 'and I fill in a text box with a valid word' do
       it 'tells me if the word is valid' do
+        
         visit '/'
 
         fill_in 'text', with: 'foxes'
