@@ -2,7 +2,7 @@ class Word
   attr_reader :input
 
   def initialize(input)
-    @search = WordSearchService.new(input)
+    @search ||= WordSearchService.new(input)
     @input = input
   end
 

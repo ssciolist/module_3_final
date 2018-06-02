@@ -1,8 +1,6 @@
 class WelcomeController < ApplicationController
-  attr_reader :headers
 
   def index
-
     if params[:text]
       @word = Word.new(params[:text])
       if @word.valid?
@@ -12,5 +10,4 @@ class WelcomeController < ApplicationController
       end
     end
   end
-
 end

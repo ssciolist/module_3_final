@@ -22,12 +22,11 @@ describe 'As a user' do
       expect(result['scores'][0]['score']).to eq(14)
       expect(result['scores'][1]['user_id']).to eq(user2.id)
       expect(result['scores'][1]['score']).to eq(5)
-
     end
   end
 
   describe 'when I send a POST request with a invalid word to /api/v1/games/1/plays' do
-    it 'sends a 201, then I can see that play in my game' do
+    it 'sends a 201, with a message that my word was not valid' do
       user1 = User.create!(name: 'Josh')
       user2 = User.create!(name: 'Sal')
       game = Game.create!(player_1_id: user1.id, player_2_id: user2.id)
