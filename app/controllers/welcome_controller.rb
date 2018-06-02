@@ -4,10 +4,9 @@ class WelcomeController < ApplicationController
   def index
 
     if params[:text]
-      @word = params[:text]
-      search = WordSearchService.new(params[:text])
-      if search.request_status == 200
-        @root_word = search.root_word
+      @word = Word.new( params[:text] )
+
+      if @word.valid?
         render :valid
       else
         render :invalid

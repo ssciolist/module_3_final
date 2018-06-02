@@ -23,17 +23,5 @@ describe WordSearchService do
         expect(first_result).to have_key(:word)
       end
     end
-
-    context '#root_word' do
-      it 'returns the root word' do
-        expect(subject.root_word).to eq('banana')
-      end
-    end
-
-    context '#valid_word' do
-      it 'returns the valid word' do
-        expect(subject.valid_word).to eq('bananas')
-      end
-    end
   end
 end
