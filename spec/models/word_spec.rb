@@ -11,13 +11,17 @@ describe Word do
   context 'instance methods' do
     context '#valid?' do
       it 'returns a boolean based on service call' do
-        expect(subject.valid?).to eq true
+        VCR.use_cassette('word_model_bananas') do
+          expect(subject.valid?).to eq true
+        end
       end
     end
 
     context '#root_word' do
       it 'returns the root word' do
-        expect(subject.root_word).to eq 'banana'
+        VCR.use_cassette('word_model_bananas') do
+          expect(subject.root_word).to eq 'banana'
+        end
       end
     end
   end
