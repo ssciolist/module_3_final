@@ -7,20 +7,28 @@ describe WordSearchService do
 
   context 'instance methods' do
     context '#request_status' do
-      it 'returns the status code of the request' do
-        expect(subject.request_status).to eq(200)
+      it 'returns 200 status code for a good request' do
+        VCR.use_cassette('word_model_bananas') do
+          expect(subject.request_status).to eq(200)
+        end
+      end
 
-        expect(bad_request.request_status).to eq(404)
+      it 'returns 404 for a bad request' do
+        VCR.use_cassette('word_service_baddada') do
+          expect(bad_request.request_status).to eq(404)
+        end
       end
     end
 
     context '#raw_result' do
       it 'returns the hash with word data' do
-        first_result = subject.raw_result[:results][0]
+        VCR.use_cassette('word_service_bananas') do
+          first_result = subject.raw_result[:results][0]
 
-        expect(subject.raw_result).to have_key(:results)
-        expect(first_result).to have_key(:lexicalEntries)
-        expect(first_result).to have_key(:word)
+          expect(subject.raw_result).to have_key(:results)
+          expect(first_result).to have_key(:lexicalEntries)
+          expect(first_result).to have_key(:word)
+        end
       end
     end
   end
